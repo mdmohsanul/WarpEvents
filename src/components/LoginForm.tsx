@@ -2,7 +2,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState } from "react";
 import { useAppDispatch } from "@/app/store";
-import { login, registerUser } from "@/features/auth/authThunk";
+import { login } from "@/features/auth/authThunk";
 import { loginSchema, type LoginData } from "@/schema/logins-schema";
 
 const LoginForm = () => {
@@ -18,7 +18,7 @@ const LoginForm = () => {
   const onSubmit: SubmitHandler<LoginData> = (data: LoginData) => {
     try {
       dispatch(login(data)).then((result) => {
-        if (registerUser.rejected.match(result)) {
+        if (login.rejected.match(result)) {
           const errorMessage =
             typeof result.payload === "string"
               ? result.payload
@@ -32,6 +32,7 @@ const LoginForm = () => {
       console.log(error);
     }
   };
+  
   return (
     <>
       <form

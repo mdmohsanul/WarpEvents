@@ -1,7 +1,7 @@
-export interface UserType{
-    name:string|undefined;
-    email:string;
-    password:string
+export interface UserType {
+  name: string;
+  email: string;
+  password: string;
 }
 
 export interface LoginUserType {

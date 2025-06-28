@@ -24,6 +24,7 @@ export const login = createAsyncThunk<
     const response = await api.post("/auth/login", data);
     return response.data.data;
   } catch (error: any) {
+    
     return rejectWithValue(error?.response?.data?.message || "Unauthorized");
   }
 });
@@ -33,6 +34,18 @@ export const checkAuth = createAsyncThunk(
   async (_, { rejectWithValue }) => {
     try {
       const res = await api.get("/auth/current-user");
+      return res.data;
+    } catch (error) {
+      return rejectWithValue(error || "Unauthorized");
+    }
+  }
+);
+
+export const logoutUser = createAsyncThunk(
+  "user/logout",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await api.post("/auth/logout");
       return res.data;
     } catch (error) {
       return rejectWithValue(error || "Unauthorized");
