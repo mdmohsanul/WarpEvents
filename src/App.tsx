@@ -1,5 +1,6 @@
 
 
+import { Outlet } from "react-router-dom";
 import './App.css'
 
 function App() {
@@ -7,9 +8,9 @@ function App() {
 
   return (
     <>
-    <h1>Warp Events</h1>
+      <Outlet />
     </>
-  )
+  );
 }
 
 export default App
