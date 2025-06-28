@@ -3,3 +3,9 @@ export interface UserType{
     email:string;
     password:string
 }
+
+export interface LoginUserType {
+  user: UserType;
+  accessToken: string;
+  refreshToken: string;
+}

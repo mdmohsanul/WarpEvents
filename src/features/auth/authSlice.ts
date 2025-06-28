@@ -1,10 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { UserType } from "../../types/user";
-import {
-  
-  registerUser,
- 
-} from "./authThunk";
+import { checkAuth, login, registerUser } from "./authThunk";
 
 interface AuthState {
   user: UserType | null;
@@ -32,8 +28,24 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
-      
-
+      .addCase(login.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(login.fulfilled, (state, action) => {
+        console.log(action);
+        Object.assign(state, {
+          loading: false,
+          user: action.payload.user,
+          accessToken: action.payload.accessToken,
+          refreshToken: action.payload.refreshToken,
+          isAuthenticated: true,
+        });
+      })
+      .addCase(login.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action?.error?.message;
+      })
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
       })
@@ -42,10 +54,20 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false;
-       
         state.error = action.payload;
       })
-      
+      .addCase(checkAuth.fulfilled, (state, action) => {
+        Object.assign(state, {
+          loading: false,
+          user: action.payload.data,
+
+          isAuthenticated: true,
+        });
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.user = null;
+        state.isAuthenticated = false;
+      });
   },
 });
 
