@@ -24,7 +24,6 @@ export const login = createAsyncThunk<
     const response = await api.post("/auth/login", data);
     return response.data.data;
   } catch (error: any) {
-    
     return rejectWithValue(error?.response?.data?.message || "Unauthorized");
   }
 });

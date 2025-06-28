@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "@/app/store";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "@/features/auth/authThunk";
 import { RxCross2 } from "react-icons/rx";
 
@@ -28,11 +28,14 @@ const Header = () => {
 
   return (
     <div className="fixed top-0 left-0 w-full z-50  backdrop-blur-md shadow-sm">
-      <div className="max-w-screen-xl mx-auto px-4 md:px-8">
+      <div className="max-w-screen-xl mx-auto px-4 md:px-8 py-1">
         <div className="flex items-center justify-between py-1">
           {/* Logo Section */}
           <div>
-            <h1 className="text-4xl">WarpEvent</h1>
+            <Link to="/events">
+              {" "}
+              <h1 className="text-4xl">WarpEvent</h1>
+            </Link>
           </div>
 
           {/* User Section */}
@@ -44,7 +47,9 @@ const Header = () => {
               className="cursor-pointer"
             >
               <img
-                src={"https://res.cloudinary.com/dkidipx7j/image/upload/v1748357192/user_profile_gql76f.webp"}
+                src={
+                  "https://res.cloudinary.com/dkidipx7j/image/upload/v1748357192/user_profile_gql76f.webp"
+                }
                 alt="user avatar"
                 className="md:h-10 md:w-10 h-8 w-8  rounded-full object-cover"
               />
@@ -71,7 +76,9 @@ const Header = () => {
 
                 <div className="flex flex-col items-center text-center gap-3 mt-4">
                   <img
-                    src={"https://res.cloudinary.com/dkidipx7j/image/upload/v1748357192/user_profile_gql76f.webp"}
+                    src={
+                      "https://res.cloudinary.com/dkidipx7j/image/upload/v1748357192/user_profile_gql76f.webp"
+                    }
                     alt="user avatar"
                     className="h-20 w-20 rounded-full object-cover"
                   />

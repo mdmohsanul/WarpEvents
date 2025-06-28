@@ -4,7 +4,9 @@ import LoginPage from "./pages/LoginPage";
 import SignupPage from "./pages/SignupPage";
 import PageNotFound from "./pages/PageNotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
-import Dashboard from "./pages/Dashboard";
+import DashboardLayout from "./layout/DashboardLayout";
+import Events from "./pages/EventsPage";
+import EventDetailsPage from "./pages/EventDetailsPage";
 
 const appRouter = createBrowserRouter([
   {
@@ -15,12 +17,16 @@ const appRouter = createBrowserRouter([
       { path: "/login", element: <LoginPage /> },
       { path: "/signup", element: <SignupPage /> },
       {
-        path: "/dashboard",
+        path: "/events",
         element: (
           <ProtectedRoute>
-            <Dashboard />
+            <DashboardLayout />
           </ProtectedRoute>
         ),
+        children: [
+          { path: "/events", element: <Events /> },
+          { path: "/events/:eventId", element: <EventDetailsPage /> },
+        ],
       },
       { path: "*", element: <PageNotFound /> },
     ],

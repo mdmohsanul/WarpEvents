@@ -10,7 +10,7 @@ const LoginPage = () => {
 
   useEffect(() => {
     if (user) {
-      navigate("/dashboard");
+      navigate("/events");
     }
   }, [user, navigate]);
   return (
