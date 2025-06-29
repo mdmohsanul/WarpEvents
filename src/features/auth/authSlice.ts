@@ -33,7 +33,6 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(login.fulfilled, (state, action) => {
-        console.log(action);
         Object.assign(state, {
           loading: false,
           user: action.payload.user,

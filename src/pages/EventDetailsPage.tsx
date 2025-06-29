@@ -18,7 +18,7 @@ const EventDetailsPage = () => {
   if (loading) return <ShimmerEventsPage />;
   if (error) return <p className="text-red-500 text-center mt-10">{error}</p>;
   if (!event) return <p className="text-center mt-10 text-gray-500">No event found.</p>;
-console.log(event);
+
 const eventDate = new Date(event.date);
 const formattedDate = eventDate.toLocaleDateString("en-IN", {
   day: "numeric",

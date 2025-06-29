@@ -36,7 +36,6 @@ const EventsPage = () => {
   const handleNext = () =>
     dispatch(setPage(Math.min(totalPages, currentPage + 1)));
   const handleSortChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     dispatch(setSortOrder(e.target.value as "asc" | "desc"));
   };
   if (loading) return <ShimmerEventsPage />;
