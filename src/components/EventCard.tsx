@@ -64,7 +64,7 @@ const EventCard : React.FC<EventCardProps>= ({event}) => {
                 : "bg-stone-800 hover:bg-stone-900 cursor-pointer"
             }`}
           >
-            {checkRegistration ? "Already Registered" : "Click to Register"}
+            {checkRegistration ? "Registered" : "Click to Register"}
           </button>
         </div>
       </div>
