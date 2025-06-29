@@ -27,7 +27,14 @@ const EventForm:React.FC<EventFormProps> = ({setShowEventForm}) => {
     try{
 
      await dispatch(addEvent(data)).unwrap();
-      dispatch(fetchEvents());
+     dispatch(
+       fetchEvents({
+         page: 1,
+         limit: 6,
+         search: "",
+         sort: "asc",
+       })
+     );
 
       setShowEventForm(false); // close modal on success
        
