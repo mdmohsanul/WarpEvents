@@ -2,17 +2,36 @@ import { api } from "@/api/api";
 import type { EventDetails, EventType } from "@/types/event";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchEvents = createAsyncThunk(
+export const fetchEvents = createAsyncThunk<
+  {
+    events: EventType[];
+    total: number;
+    totalPages: number;
+    currentPage: number;
+  },
+  { page: number; limit: number; search?: string; sort?: "asc" | "desc" }
+>(
   "events/fetchEvents",
-  async (_, { rejectWithValue }) => {
+  async (
+    { page = 1, limit = 5, search = "", sort = "asc" },
+    { rejectWithValue }
+  ) => {
     try {
-      const res = await api.get("/events");
+      const queryParams = new URLSearchParams({
+        page: String(page),
+        limit: String(limit),
+        ...(search ? { search } : {}),
+        ...(sort && { sort }),
+      });
+
+      const res = await api.get(`/events?${queryParams.toString()}`);
       return res.data.data;
     } catch (error: any) {
       return rejectWithValue(error?.response?.data?.message || "Unauthorized");
     }
   }
 );
+
 
 export const addEvent = createAsyncThunk<
   EventType,

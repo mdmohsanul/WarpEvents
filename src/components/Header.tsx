@@ -1,16 +1,27 @@
 import { useAppDispatch, useAppSelector } from "@/app/store";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { logoutUser } from "@/features/auth/authThunk";
 import { RxCross2 } from "react-icons/rx";
+import { setSearchTerm } from "@/features/events/eventSlice";
 
 const Header = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { user } = useAppSelector((state) => state.auth);
+  const { searchTerm } = useAppSelector((state) => state.events);
   const [showDetails, setShowDetails] = useState(false);
   const [showUser, setShowUser] = useState(false);
+  const [searchInput, setSearchInput] = useState(searchTerm); // temp state for input
 
+  // Debounce Effect
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      dispatch(setSearchTerm(searchInput));
+    }, 500); // 500ms debounce
+
+    return () => clearTimeout(delayDebounce); // cleanup on each keystroke
+  }, [searchInput, dispatch]);
   const hoverHandler = () => {
     setShowDetails(true);
   };
@@ -37,7 +48,13 @@ const Header = () => {
               <h1 className="text-4xl">WarpEvent</h1>
             </Link>
           </div>
-
+          <input
+            type="text"
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
+            placeholder="Search events..."
+            className="border px-3 py-1 rounded mb-4 w-64 mt-4"
+          />
           {/* User Section */}
           <div className="relative flex items-center justify-center">
             <button
